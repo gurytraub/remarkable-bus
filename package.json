@@ -1,10 +1,10 @@
 {
   "name": "remarkable-bus",
-  "version": "0.7.9",
+  "version": "0.8.0",
   "description": "The Remarkable micro-services framework",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/novus/remarkable-bus.git"
+    "url": "https://github.com/gurytraub/remarkable-bus.git"
   },
   "author": "Ariel Laub",
   "license": "MIT",
@@ -50,13 +50,5 @@
     "supertest": "^3.1.0",
     "tslint": "^5.8.0",
     "typescript": "^2.7.2"
-  },
-  "bugs": {
-    "url": "https://github.com/novus/remarkable-bus/issues"
-  },
-  "homepage": "https://github.com/novus/remarkable-bus#readme",
-  "directories": {
-    "lib": "lib",
-    "test": "test"
   }
 }
