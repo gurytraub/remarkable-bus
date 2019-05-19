@@ -34,7 +34,7 @@ service Service {
 }`;
 class TestService extends MessageService {
     constructor(context: IContext) {
-        super(context);
+        super(context, { maxConcurrent: 1 });
         Logger.info('simple service initialized');
     }
 

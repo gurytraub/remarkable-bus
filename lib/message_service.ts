@@ -24,15 +24,19 @@ export interface IMessageService {
     routeHttp(): Promise<express.Express>;
 }
 
+export interface IMessageServiceOptions {
+    maxConcurrent?: number;
+}
+
 export default abstract class MessageService implements IMessageService {
     protected context: IContext;
 
     private listener: MessageListener;
     private eventListener: EventListener;
 
-    constructor (context: IContext) {
+    constructor (context: IContext, options: IMessageServiceOptions = {}) {
         this.context = context;
-        this.listener = new MessageListener(context.connection);
+        this.listener = new MessageListener(context.connection, !!options.maxConcurrent, options.maxConcurrent);
         this.eventListener = new EventListener(context.connection, context.factory);
     }
 

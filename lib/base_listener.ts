@@ -21,6 +21,7 @@ export abstract class BaseListener extends EventEmitter {
     protected handler: MessageHandler;
     protected isAnonymous: boolean;
     protected lateAck: boolean;
+    protected maxConcurrent: number;
     protected defaultHandler: MessageHandler;
 
     constructor(connection: IConnection) {
@@ -34,7 +35,8 @@ export abstract class BaseListener extends EventEmitter {
         this.handler = undefined;
         this.isAnonymous = true;
         this.lateAck = false;
-        this.defaultHandler = async (message: Buffer, correlationId: string) => {
+        this.maxConcurrent = undefined; // only used for late ack workers.
+        this.defaultHandler = async (message: Buffer/*, correlationId: string*/) => {
             Logger.warn(`unhandled message by default handler ${JSON.stringify(message)}`);
         };
     }
@@ -48,6 +50,9 @@ export abstract class BaseListener extends EventEmitter {
         this.handler = messageHandler || this.defaultHandler.bind(this);
         this.isAnonymous = !queueName;
         this.channel = await this.connection.openChannel();
+        if (this.lateAck) { // support late ack worker services.
+            await this.channel.prefetch(this.maxConcurrent, false);
+        }
         await this.connection.declareExchange(this.channel, this.exchangeName, this.exchangeType, {
             autoDelete: false,
             durable: true,

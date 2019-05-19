@@ -12,6 +12,7 @@ export default class Config {
     }
 
     static get messageProcessingTimeout() {
-        return process.env.MESSAGE_PROCESSING_TIMEOUT || 600000;
+        const c = process.env.MESSAGE_PROCESSING_TIMEOUT;
+        return c ? parseInt(c) : 600000;
     }
 }

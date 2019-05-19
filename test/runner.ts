@@ -11,7 +11,7 @@ import { Logger } from '../lib/logger';
 import Config from '../lib/config';
 
 process.on('unhandledRejection', (reason, p) => {
-    console.error('Unhandled Rejection at: Promise', p, 'reason:', reason.stack);
+    console.error('Unhandled Rejection at: Promise', p, 'reason:', reason);
 });
 
 async function run() {

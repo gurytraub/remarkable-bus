@@ -3,11 +3,14 @@ import Config from './config';
 import { IConnection } from './connection';
 
 export default class MessageListener extends BaseListener {
-    constructor(connection: IConnection) {
+    constructor(connection: IConnection, lateAck?: boolean, maxConcurrent?: number) {
         super(connection);
 
         this.exchangeName = Config.busExchangeName;
         this.exchangeType = 'topic';
+
+        this.lateAck = !!lateAck;
+        this.maxConcurrent = maxConcurrent || 1;
     }
 
     async subscribe(topics: string[] | string) {
