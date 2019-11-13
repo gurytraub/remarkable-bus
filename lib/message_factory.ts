@@ -166,7 +166,7 @@ export default class MessageFactory {
         const Message = this.root.lookupType(messageType);
 
         try {
-            return Message.toObject(Message.decode(data), { arrays: false, enums: String });
+            return Message.toObject(Message.decode(data), { arrays: true, enums: String });
         } catch (error) {
             Logger.error(Message.verify(data));
             Logger.error(`error decoding message ${messageType} with data ${JSON.stringify(data)}`);
