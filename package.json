@@ -30,7 +30,7 @@
     "clean": "rm -R dist"
   },
   "dependencies": {
-    "amqplib": "^0.5.3",
+    "amqplib": "^0.7.1",
     "cuid": "^2.1.6",
     "express": "^4.17.0",
     "protobufjs": "^6.8.8",
