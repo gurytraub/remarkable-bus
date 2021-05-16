@@ -22,10 +22,13 @@ export default class ServiceCluster {
         this.context = context;
     }
 
-    public use<T extends MessageService>(Service: ServiceType<T>, httpPath?: string): T {
-        const service = <T>(new Service(this.context));
-        this.services.push({ service, httpPath });
+    public use<T extends MessageService>(Service: ServiceType<T>, httpPath?: string, count?: number): T {
+        let service = <T>(new Service(this.context));
         this.context.factory.parse(service.Proto, service.ServiceName);
+        for (let i = 0; i < count; ++i) {
+            this.services.push({ service, httpPath });
+            service = <T>(new Service(this.context));
+        }
         return service;
     }
 
