@@ -60,8 +60,8 @@ class TestService extends MessageService {
         const proxy: any = new ServiceProxy(this.context, this.ServiceName);
         proxy.init();
         app.get('/simpleMethod', async (req: express.Request, res: express.Response) => {
-            const num1 = parseInt(req.query.num1);
-            const num2 = parseInt(req.query.num2);
+            const num1 = parseInt(<string>req.query.num1);
+            const num2 = parseInt(<string>req.query.num2);
             const result = await proxy.simpleMethod({ num1, num2 });
             res.json(result);
         });
@@ -104,7 +104,7 @@ describe('MessageService tests suite', () => {
         return new Promise(async (resolve) => {
             const handler = async (event): Promise<any> => {
                 expect(event).to.have.property('message', 'hello');
-                resolve();
+                resolve(undefined);
             };
             await theService.subscribeEvent('Simple.Event', handler);
             await theService.publishEvent('Simple.Event', { message: 'hello' });
@@ -116,7 +116,7 @@ describe('MessageService tests suite', () => {
             let i = 1;
             const handler = async (event): Promise<any> => {
                 expect(event).to.have.property('count', i);
-                if (i++ == 2) resolve();
+                if (i++ == 2) resolve(undefined);
             };
             await theService.subscribeEvent('Simple.MultiEvent', handler, 'CUSTOM.*.TOPIC');
             await theService.publishEvent('Simple.MultiEvent', { count: 1 }, 'CUSTOM.1.TOPIC');

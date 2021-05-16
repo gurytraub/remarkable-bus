@@ -27,8 +27,8 @@ export class SimpleService extends ProxiedService<ISimpleService> {
     public async routeHttp(): Promise<express.Express> {
         const app = express();
         app.get('/simpleMethod', async (req: express.Request, res: express.Response) => {
-            const num1 = parseInt(req.query.num1);
-            const num2 = parseInt(req.query.num2);
+            const num1 = parseInt(<string>req.query.num1);
+            const num2 = parseInt(<string>req.query.num2);
             // not using proxy because we are just checking the http routing.
             const result = await this.proxy.simpleMethod({ num1, num2 });
             res.json(result);
@@ -54,8 +54,8 @@ export class SimpleService2 extends ProxiedService<ISimpleService> {
     public async routeHttp(): Promise<express.Express> {
         const app = express();
         app.get('/simpleMethod', async (req: express.Request, res: express.Response) => {
-            const num1 = parseInt(req.query.num1);
-            const num2 = parseInt(req.query.num2);
+            const num1 = parseInt(<string>req.query.num1);
+            const num2 = parseInt(<string>req.query.num2);
             // not using proxy because we are just checking the http routing.
             const result = await this.proxy.simpleMethod({ num1, num2 });
             res.json(result);
