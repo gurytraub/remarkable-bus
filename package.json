@@ -1,6 +1,6 @@
 {
   "name": "protobus",
-  "version": "0.8.5",
+  "version": "0.8.6",
   "description": "The Remarkable micro-services framework",
   "repository": {
     "type": "git",
