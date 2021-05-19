@@ -25,6 +25,9 @@ export default class ServiceCluster {
     public use<T extends MessageService>(Service: ServiceType<T>, httpPath?: string, count?: number): T {
         let service = <T>(new Service(this.context));
         this.context.factory.parse(service.Proto, service.ServiceName);
+        if (count === undefined) {
+            count = 1; // default to 1 instance
+        }
         for (let i = 0; i < count; ++i) {
             this.services.push({ service, httpPath });
             service = <T>(new Service(this.context));

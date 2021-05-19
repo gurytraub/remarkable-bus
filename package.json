@@ -1,10 +1,10 @@
 {
-  "name": "remarkable-bus",
+  "name": "protobus",
   "version": "0.8.5",
   "description": "The Remarkable micro-services framework",
   "repository": {
     "type": "git",
-    "url": "https://github.com/gurytraub/remarkable-bus.git"
+    "url": "https://github.com/ArielLaub/protobus.git"
   },
   "author": "Ariel Laub",
   "license": "MIT",

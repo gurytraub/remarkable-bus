@@ -1,6 +1,6 @@
 ## Overview
 
-The Remarkable Bus is a lean, mean and super scalable micro-services message bus written entirely in TypeScript.
+The ProtoBus is a lean, mean and super scalable micro-services message bus written entirely in TypeScript.
 
 It is using RabbitMQ for routing and load balancing messages across different services.
 
@@ -14,7 +14,7 @@ These two underlying technologies ensure we'll have the ability to extend our pl
 
 This module is intended to be used in a high volume financial environment and as such we tried to choose battle tested components and as few dependencies as possible.
 
-Remarkable Bus is based on AMQP so you'll need to install either RabbitMQ or use a cloud AMQP provider, there are a few.. The advantage of this is that it adds virtually infinite scalability to the messaging layer with very little maintainance.
+ProtoBus is based on AMQP so you'll need to install either RabbitMQ or use a cloud AMQP provider, there are a few.. The advantage of this is that it adds virtually infinite scalability to the messaging layer with very little maintainance.
 
 As you can see for yourself from the package.json file we really kept the dependencies to a minimum with the few we did use being high profile and very popular. This termendously reduces the risk involved with foreign code in such a low level component.
 
@@ -22,11 +22,11 @@ As you can see for yourself from the package.json file we really kept the depend
 
 You can either clone this repo for the latest and greatest or download the official npm:
 ```
-npm install remarkable-bus --save
+npm install protobus --save
 ``` 
 or
 ```
-yarn add remarkable-bus --save
+yarn add protobus --save
 ```
 
 ## Main Components
@@ -40,7 +40,7 @@ The context constructor receives two parameter. The first being amqp connection 
 
 here is an example of creating and initializing a context object:
 ```ts
-import { IContext, Context } from 'remarkable-bus';
+import { IContext, Context } from 'protobus';
 
 const createContext = async () => {
     const AMQP_CONNECTION_STRING = 'amqp://guest:guest@localhost:5672/';
@@ -93,7 +93,7 @@ You'll need to define the services you want to use with this context in .proto f
 A MessageService is the base class you need to inherit in order to implement a micro service on the bus. It also must have the interface defined in a .proto file, and this file also must be loaded into the context used to initiate the service.
 here is an implementation for the .proto file we presented above:
 ```ts
-import { IContext, Context, IMessageService, MessageService } from 'remarkable-bus';
+import { IContext, Context, IMessageService, MessageService } from 'protobus';
 
 class SimpleService extends MessageService {
     constructor(context: IContext) {
@@ -128,7 +128,7 @@ createContext.then(async (context: IContext) => {
 In many cases it makes sense to initiate a group of services together sharing the same process and the same context.
 The ServiceCluster class does exactly that. It's basically a glorified services container with some fancy typescript magic. using ServiceCluster you can initialize services in a more compact way (if you have more than a few...):
 ```ts
-import { ServiceCluster } from 'remarkable-bus';
+import { ServiceCluster } from 'protobus';
 
 ...
 
@@ -147,7 +147,7 @@ Once you have a running message service instance you'll need a proxy to interact
 
 Here is an example of creating a ServiceProxy to interact with our SimpleService:
 ```ts
-import { IContext, Context, ServiceProxy } from 'remarkable-bus';
+import { IContext, Context, ServiceProxy } from 'protobus';
 
 ...
 
@@ -169,7 +169,7 @@ createContext.then(async (context: IContext) => {
 ### Logger
 We mentioned in the preface our aim to have as few dependencies as we can reasonably have within our limitations. This module will use the default console object for logging but you can easily integrate your own logger by implementing our ILogger interface and supplying an instance. Here is an example:
 ```ts
-import { ILogger, setLogger } from 'remarkable-bus';
+import { ILogger, setLogger } from 'protobus';
 
 const emotionalLogger: ILogger = {
     info: (message) => { console.log(':) ' + message); },

@@ -44,9 +44,9 @@ export default class ServiceProxy {
                         throw new PublishMessageError(`failed dispatching request to ${methodFullName}`);
                     })
                     .then((responseData) => {
-                        if (!rpc) {
-                            return {};
-                        }
+                        // if (!rpc) {
+                        //     return {};
+                        // }
                         let response;
                         try {
                             response = this.context.factory.decodeResponse(responseData);

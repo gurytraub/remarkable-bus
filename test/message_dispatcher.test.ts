@@ -21,6 +21,7 @@ describe('MessageDispatcher tests suite', () => {
             dispatcher = new MessageDispatcher(connection);
             await dispatcher.init();
             expect(dispatcher).to.have.property('isInitialized', true);
+            console.log('MessageDispatcher tests initialized');
         }
         catch (error) {
             console.error(error);
